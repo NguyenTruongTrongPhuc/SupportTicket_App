@@ -66,27 +66,18 @@
                         <field name="stage" widget="statusbar"/>
                     </header>
                     <sheet>
-                        <!-- View for User -->
                         <group groups="ticket_support.group_ticket_user">
                             <field name="ticket_code"/>
                             <field name="name"/>
                             <field name="stage"/>
-                            <field name="status"/>
                             <field name="custom_create_date"/>
                             <field name="content"/>
                             <field name="note"/>
                         </group>
-                        <!-- View for Customer -->
                         <group groups="ticket_support.group_ticket_manager">
                             <group invisible = "boolean_toggle == True">
-                                <field name="ticket_code"/>
-                                <field name="name"/>
-                                <field name="custom_create_date"/>
                                 <field name="nearest_response_date"/>
                                 <field name="stage"/>
-                                <field name="status"/>
-                                <field name="content"/>
-                                <field name="note"/>
                                 <notebook>
                                     <page string="Users">
                                         <group>
@@ -103,15 +94,6 @@
                                         </group>
                                     </page>
                                 </notebook>
-                            </group>
-                            <group invisible = "boolean_toggle == False">
-                                <field name="ticket_code"/>
-                                <field name="name"/>
-                                <field name="stage"/>
-                                <field name="status"/>
-                                <field name="custom_create_date"/>
-                                <field name="content"/>
-                                <field name="note"/>
                             </group>
                         </group>
 
