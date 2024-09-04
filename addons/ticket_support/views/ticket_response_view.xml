@@ -1,0 +1,36 @@
+<odoo>
+    <data>
+        <record id="support_ticket_response_tree_view" model="ir.ui.view">
+            <field name="name">support.ticket.response.tree</field>
+            <field name="model">support.ticket.response</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name" />
+                </tree>
+            </field>
+        </record>
+        <record id="support_ticket_response_form_view" model="ir.ui.view">
+            <field name="name">support.ticket.response.form</field>
+            <field name="model">support.ticket.response</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <field name="name" widget="char_emojis" placeholder="Ticket Name"/>
+                        </group>   
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="action_ticket_response" model="ir.actions.act_window">
+            <field name="name">Ticket Response</field>
+            <field name="res_model">support.ticket.response</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Create a Ticket to Advertise
+                </p>
+            </field>
+        </record>
+    </data>
+</odoo>

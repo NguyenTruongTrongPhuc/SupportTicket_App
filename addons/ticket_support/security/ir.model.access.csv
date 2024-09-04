@@ -1,0 +1,6 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_support_ticket,access_support_ticket,model_support_ticket,base.group_user,1,1,1,1
+access_support_ticket_type,access_support_ticket_type,model_support_ticket_type,base.group_user,1,1,1,1
+access_support_ticket_status,access_support_ticket_status,model_support_ticket_status,base.group_user,1,1,1,1
+access_support_ticket_response,access_support_ticket_response,model_support_ticket_response,base.group_user,1,1,1,1
+access_support_ticket_stage,access_support_ticket_stage,model_support_ticket_stage,base.group_user,1,1,1,1

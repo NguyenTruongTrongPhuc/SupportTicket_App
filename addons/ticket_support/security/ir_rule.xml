@@ -1,0 +1,29 @@
+<odoo>
+    <data>
+        <record id="ticket_rule_for_users" model="ir.rule">
+            <field name="name">
+                Ticket Rule For Users
+            </field> 
+            <field name="model_id" ref="ticket_support.model_support_ticket"/>
+            <field name="domain_force">[('user', '=', user.id)]</field>
+            <field name="groups" eval="[(4, ref('ticket_support.group_ticket_user'))]"/>
+            <field name="perm_unlink" eval="False"/>
+            <field name="perm_write" eval="False"/>
+            <field name="perm_read" eval="True"/>
+            <field name="perm_create" eval="True"/>
+        </record>
+
+        <record id="ticket_rule_for_manager" model="ir.rule">
+            <field name="name">
+                Ticket Rule For Manager
+            </field> 
+            <field name="model_id" ref="ticket_support.model_support_ticket"/>
+            <field name="domain_force">[(1, '=', 1)]</field>
+            <field name="groups" eval="[(4, ref('ticket_support.group_ticket_manager'))]"/>
+            <field name="perm_unlink" eval="True"/>
+            <field name="perm_write" eval="True"/>
+            <field name="perm_read" eval="True"/>
+            <field name="perm_create" eval="True"/>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem name="Support Ticket" id="menu_root_support_ticket" web_icon="ticket_support,static/description/icon.png" >
+       <menuitem id="menu_support_ticket" name="Ticket">
+           <menuitem id="menu_ticket" name="Ticket" action="ticket_support.action_ticket"/>
+       </menuitem>
+       <menuitem id="menu_support_ticket_settings" name="Settings">
+          <menuitem id="menu_ticket_type" name="Ticket Type" action="ticket_support.action_ticket_type"/>
+           <menuitem id="menu_ticket_status" name="Ticket Status" action="ticket_support.action_ticket_status" groups="ticket_support.group_ticket_manager"/>
+           <menuitem id="menu_ticket_response" name="Ticket Response" action="ticket_support.action_ticket_response"/>
+       </menuitem> 
+    </menuitem>
+</odoo>

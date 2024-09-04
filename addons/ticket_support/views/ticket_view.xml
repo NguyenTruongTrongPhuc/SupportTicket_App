@@ -1,0 +1,189 @@
+<odoo>
+    <data>
+        <record id="support_ticket_tree_view" model="ir.ui.view">
+            <field name="name">support.ticket.tree</field>
+            <field name="model">support.ticket</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="ticket_code"/>
+                    <field name="name"/>
+                    <field name="custom_create_date"/>
+                    <field name="nearest_response_date"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="support_ticket_kanban_view" model="ir.ui.view">
+            <field name="name">support.ticket.kanban</field>
+            <field name="model">support.ticket</field>
+            <field name="arch" type="xml">
+                <kanban default_group_by="stage" on_create="quick_create"
+                quick_create_view="ticket_support.quick_create_support_ticket_form_view">
+                    <field name="ticket_type" groups="ticket_support.group_ticket_manager"/>
+                    <field name="content"/>
+                    <field name="email"/>
+                    <field name = "color"/>
+                    <field name="status" widget="badge" groups="ticket_support.group_ticket_manager"/>
+                    <template>
+                        <t t-name="kanban-box">
+                            <div class="oe_kanban_card" t-attf-class="{{'oe_kanban_color_' + kanban_getcolor(record.color.raw_value) }} oe_kanban_card oe_kanban_global_click oe_semantic_html_override">
+                                <div class="oe_kanban_details">
+                                    <strong class="o_kanban_record_title">
+                                        <field name="name" />                                          
+                                    </strong> 
+                                    <div class="o_kanban_record_bottom">
+                                        <div class="oe_kanban_bottom_left">
+                                            <field name="content" />  
+                                        </div>
+                                    </div>
+                                    <div class="o_kanban_record_bottom">
+                                        <div class="oe_kanban_bottom_left">
+
+                                        </div>
+                                       <div class="oe_kanban_bottom_right text_end">
+                                           <field name="user" widget="many2many_avatar_user" class="text_end"/>
+                                       </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </t>
+                    </template>
+                </kanban>
+            </field>
+        </record>
+
+
+
+        <record id="support_ticket_form_view" model="ir.ui.view">
+            <field name="name">support.ticket.form</field>
+            <field name="model">support.ticket</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+                        <group groups="ticket_support.group_ticket_manager">
+                            <field name="boolean_toggle" widget="boolean_toggle"/>
+                        </group>
+                        <field name="stage" widget="statusbar"/>
+                    </header>
+                    <sheet>
+                        <!-- View for User -->
+                        <group groups="ticket_support.group_ticket_user">
+                            <field name="ticket_code"/>
+                            <field name="name"/>
+                            <field name="stage"/>
+                            <field name="status"/>
+                            <field name="custom_create_date"/>
+                            <field name="content"/>
+                            <field name="note"/>
+                        </group>
+                        <!-- View for Customer -->
+                        <group groups="ticket_support.group_ticket_manager">
+                            <group invisible = "boolean_toggle == True">
+                                <field name="ticket_code"/>
+                                <field name="name"/>
+                                <field name="custom_create_date"/>
+                                <field name="nearest_response_date"/>
+                                <field name="stage"/>
+                                <field name="status"/>
+                                <field name="content"/>
+                                <field name="note"/>
+                                <notebook>
+                                    <page string="Users">
+                                        <group>
+                                            <field name="user"/>
+                                            <field name="user_image"/>
+                                        </group>
+                                    </page>
+                                    <page string="Customer">
+                                        <group>
+                                            <field name="customer_id"/>
+                                            <field name="email"/>
+                                            <field name="phone"/>
+                                            <field name="website"/>
+                                        </group>
+                                    </page>
+                                </notebook>
+                            </group>
+                            <group invisible = "boolean_toggle == False">
+                                <field name="ticket_code"/>
+                                <field name="name"/>
+                                <field name="stage"/>
+                                <field name="status"/>
+                                <field name="custom_create_date"/>
+                                <field name="content"/>
+                                <field name="note"/>
+                            </group>
+                        </group>
+
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="quick_create_support_ticket_form_view" model="ir.ui.view">
+            <field name="name">support.ticket.form</field>
+            <field name="model">support.ticket</field>
+            <field name="arch" type="xml">
+                <form> 
+
+                </form>
+            </field>
+        </record>
+
+        <record id="support_ticket_search_view" model="ir.ui.view">
+            <field name="name">support.ticket.tree</field>
+            <field name="model">support.ticket</field>
+            <field name="arch" type="xml">
+                <search> 
+                    <field name="ticket_code" />
+                    <field name="name" />
+                    <field name="email" />
+                    <field name="customer_id" />
+                    <field name="content"/>
+                    <field name="ticket_type" groups="ticket_support.group_ticket_manager"/>
+                    <field name="custom_create_date" />
+                    <field name="status" widget="badge" groups="ticket_support.group_ticket_manager"/>
+                    <field name="ticket_response" />
+                    <field name="user" />
+                    <separator/>
+                    <group expand="0" string="Group By">
+                        <filter string="Status" name="group_by_status" context="{'group_by': 'status'}"/>
+                        <filter string="Name" name="group_by_name" context="{'group_by': 'name'}"/>
+                        <filter string="Customer" name="group_by_customer_id" context="{'group_by': 'customer_id'}"/>
+                        <filter string="Response Day" name="group_by_response_day" context="{'group_by': 'nearest_response_date'}"/>
+                        <filter string="Content" name="group_by_content" context="{'group_by': 'content'}"/>
+                        <filter string="Email" name="group_by_email" context="{'group_by': 'email'}"/>
+                        <filter string="User" name="group_by_user" context="{'group_by': 'user'}"/>
+                    </group>
+                    <searchpanel>
+                        <field name="status" icon="fa-filter" group_by="group_by_status" limit="0"/>
+                    </searchpanel>
+                </search>
+            </field>
+        </record>
+
+        <record id="ir_cron_update_ticket_status_colors" model="ir.cron">
+            <field name="name">Update Ticket Status Colors</field>
+            <field name="model_id" ref="model_support_ticket"/>  <!-- Reference the correct model -->
+
+            <field name="code">model.update_ticket_status_colors()</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+            <field name="doall" eval="False"/>
+        </record>
+        
+
+        <record id="action_ticket" model="ir.actions.act_window">
+            <field name="name">Ticket</field>
+            <field name="res_model">support.ticket</field>
+            <field name="view_mode">kanban,tree,form</field>
+            <field name="view_id" ref="support_ticket_kanban_view"/>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Create a Ticket to Advertise
+                </p>
+            </field>
+        </record>
+    </data>
+</odoo>
